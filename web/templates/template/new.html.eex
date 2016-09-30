@@ -1,0 +1,12 @@
+<h1>Create a new template</h1>
+
+<%= form_for @conn, template_path(@conn, :create), [as: :template], fn f -> %>
+  <div class="form-group">
+    <label>getData() body:</label>
+    <%= textarea f, :get_data, class: "form-control" %>
+    <label>sendResults() body:</label>
+    <%= textarea f, :send_results, class: "form-control" %>
+  </div>
+
+  <%= submit "Save template", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,7 @@
+function getData() {
+  <%= @get_data_body %>
+}
+
+function sendResults() {
+  <%= @send_results_body %>
+}

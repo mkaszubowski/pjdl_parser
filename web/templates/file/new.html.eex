@@ -1,0 +1,12 @@
+<h1>Add a new file</h1>
+
+<%= form_for @conn, file_path(@conn, :create), [as: :file, multipart: true], fn (f) -> %>
+  <div class="form-group">
+    <label>Title</label>
+    <%= text_input f, :title, class: "form-control" %>
+    <label>File</label>
+    <%= file_input f, :archive, class: "form-control" %>
+  </div>
+
+<%= submit "Upload", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,7 @@
+<h1>Uploads</h1>
+
+<ul class="uploads">
+  <%= for filename <- @uploads do %>
+    <li><%= filename %></li>
+  <% end %>
+</ul>
