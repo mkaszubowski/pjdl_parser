@@ -22,7 +22,7 @@ defmodule Poc.Router do
     post "/file", FileController, :create
 
     get "/uploads", UploadController, :index
-    resources "/uploads", UploadController, only: [:index, :delete, :edit, :update]
+    resources "/uploads", UploadController, except: [:new, :create]
 
 
     get "/templates", TemplateController, :new

@@ -9,6 +9,11 @@ defmodule Poc.UploadController do
     render(conn, "index.html", templates: templates)
   end
 
+  def show(conn, %{"id" => id}) do
+    template = JobTemplateAgent.get_template(id)
+    json(conn, template)
+  end
+
   def delete(conn, %{"id" => id}) do
     JobTemplateAgent.delete_template(id)
     redirect(conn, to: upload_path(conn, :index))

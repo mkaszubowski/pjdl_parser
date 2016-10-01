@@ -10,7 +10,8 @@
       <p>Activities count: <%= Enum.count(template.activities) %></p>
       <p>Resources count: <%= Enum.count(template.resources) %></p>
       <p>Scripts count: <%= Enum.count(template.scripts) %></p>
-      <%= link "Delete", to: upload_path(@conn, :delete, template.id), method: :delete %>
+      <%= link "View in json", to: upload_path(@conn, :show, template.id) %> |
+      <%= link "Delete", to: upload_path(@conn, :delete, template.id), method: :delete %> |
       <%= link "Edit", to: upload_path(@conn, :edit, template.id) %>
       <hr />
     </div>
