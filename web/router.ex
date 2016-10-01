@@ -21,7 +21,8 @@ defmodule Poc.Router do
     get "/file", FileController, :new
     post "/file", FileController, :create
 
-    get "/uploads", PageController, :uploads
+    get "/uploads", UploadController, :index
+    resources "/uploads", UploadController, only: [:index, :delete, :edit, :update]
 
 
     get "/templates", TemplateController, :new

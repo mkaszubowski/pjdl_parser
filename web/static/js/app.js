@@ -1,16 +1,3 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
-
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
 import "phoenix_html";
 
 import {Socket} from "phoenix";
@@ -29,14 +16,12 @@ $(() => {
 
     channel.on("new:upload", msg => {
         if (uploadsField) {
-            uploadsField.prepend(`<li>${msg.title} - ${msg.filename}</li>`);
+            let template = `<div><h3>Id: ${msg.id}</h3>`;
+            template += `<p>Short description: ${msg.description}`;
+            template += `<p>Results visibility: ${msg.results_visibility}`;
+            template += `<p>Instantiation: ${msg.job_instantiation}`;
+            template += "<hr /></div>";
+            uploadsField.prepend(template);
         }
     });
 });
-
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
-
-// import socket from "./socket"

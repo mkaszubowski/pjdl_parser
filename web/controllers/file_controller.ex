@@ -1,7 +1,7 @@
 defmodule Poc.FileController do
   use Poc.Web, :controller
 
-  alias Poc.UploadAgent
+  alias Poc.JobTemplateAgent
 
   plug :scrub_params, "file" when action in [:create]
 
@@ -11,7 +11,6 @@ defmodule Poc.FileController do
 
   def create(conn, %{"file" => file}) do
     upload = file["archive"]
-    title = file["title"]
     filename = "archives/#{upload.filename}"
 
     :ok = File.cp(upload.path, filename)
@@ -22,17 +21,28 @@ defmodule Poc.FileController do
       |> Enum.map(&(to_string(&1)))
       |> Enum.find(fn filename -> pjdl_file?(filename) end)
 
-    UploadAgent.add_upload("#{title} - #{pjdl_filename}")
-    Poc.Endpoint.broadcast("uploads:lobby", "new:upload", %{
-          filename: pjdl_filename,
-          title: title
-    })
-
     MyApp.main([pjdl_filename])
+    job_template = MyApp.parse(pjdl_filename)
 
-    conn
-    |> put_flash(:info, "File uploaded")
-    |> redirect(to: file_path(conn, :new))
+    case JobTemplateAgent.add_template(job_template) do
+      {:ok, template} ->
+        Poc.Endpoint.broadcast("uploads:lobby", "new:upload", %{
+              id: template.id,
+              description: template.short_description,
+              results_visibility: template.results_visibility,
+              instantiation: template.instantiation
+        })
+
+        conn
+        |> put_flash(:info, "File uploaded")
+        |> redirect(to: upload_path(conn, :index))
+      {:error, :alread_uploaded} ->
+        conn
+        |> put_flash(:error, "Job template with this id is already uploaded")
+        |> redirect(to: file_path(conn, :new))
+    end
+
+
   end
 
   defp pjdl_file?(filename) do

@@ -6,7 +6,7 @@ defmodule Poc do
 
     children = [
       supervisor(Poc.Endpoint, []),
-      worker(Poc.UploadAgent, [])
+      worker(Poc.JobTemplateAgent, [])
     ]
 
     opts = [strategy: :one_for_one, name: Poc.Supervisor]

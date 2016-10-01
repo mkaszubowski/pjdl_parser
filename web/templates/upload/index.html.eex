@@ -1,0 +1,18 @@
+<h1>Uploaded templates:</h1>
+
+<div class="uploads">
+  <%= for template <- @templates do %>
+    <div>
+      <h3>Id: <%= template.id %></h3>
+      <p>Description: <%= template.short_description %></p>
+      <p>Results visibility: <%= template.results_visibility %></p>
+      <p>Instantiation: <%= template.instantiation %></p>
+      <p>Activities count: <%= Enum.count(template.activities) %></p>
+      <p>Resources count: <%= Enum.count(template.resources) %></p>
+      <p>Scripts count: <%= Enum.count(template.scripts) %></p>
+      <%= link "Delete", to: upload_path(@conn, :delete, template.id), method: :delete %>
+      <%= link "Edit", to: upload_path(@conn, :edit, template.id) %>
+      <hr />
+    </div>
+  <% end %>
+</div>

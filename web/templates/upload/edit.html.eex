@@ -1,0 +1,18 @@
+<h1>Edit job template: <%= @template.id %></h1>
+
+<%= form_for @conn, upload_path(@conn, :update, @template), [as: :template, method: :put], fn (f) -> %>
+  <div class="form-group">
+    <label>Short description</label>
+    <%= text_input f, :short_description, value: @template.short_description, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>Results visibility</label>
+    <%= text_input f, :results_visibility, value: @template.results_visibility, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>Short description</label>
+    <%= text_input f, :instantiation, value: @template.instantiation, class: "form-control" %>
+  </div>
+
+<%= submit "Update", class: "btn btn-primary" %>
+<% end %>
