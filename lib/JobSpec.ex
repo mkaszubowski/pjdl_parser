@@ -27,7 +27,7 @@ defmodule JobSpec do
             St.err "\"job\" should have at most one name", { head.line, head.column}
         end
         IO.puts "JOB #{job.id}"
-        job = Map.merge job, %{ id: head.value }
+        Map.merge job, %{ id: head.value }
     end
 
     def jobAttribs job, attribs do
@@ -91,7 +91,7 @@ defmodule JobSpec do
         if st.attribs == [] do
             Statement.err "You must specify at least one attribute for results_visibility", st.pos
         end
-        [ {attrib,param} | a ] = st.attribs
+        [ {attrib, _param} | a ] = st.attribs
 
         unless a == [] do
             Statement.err "You must specify only one attribute for results_visibility", st.pos
@@ -111,7 +111,7 @@ defmodule JobSpec do
         job = Statement.ensureDeclaredOnce job, st
         Statement.forbidNames st
         Statement.forbidChildren st
-        {attrib, param } = Statement.ensureOneAttrib st
+        {attrib, _param } = Statement.ensureOneAttrib st
 
         type = case attrib.value do    
               ".lazy" -> :lazy
@@ -133,7 +133,7 @@ defmodule JobSpec do
           ScriptGroupSpec.scriptsChildren job, st.children
     end
 
-    def activityName [], pos do
+    def activityName [], _pos do
         JobId.id(10)
     end
 
@@ -153,6 +153,10 @@ defmodule JobSpec do
           Map.merge job, %{ activities: [ activity | job.activities ] }
     end
 
+    def main( st ) do
+        main st.key.value, st
+    end
+
     def main(key, st) when key == "job" do
         IO.puts "ok"
     
@@ -161,9 +165,6 @@ defmodule JobSpec do
                 |> jobName(st.names)
                 |> jobAttribs(st.attribs)
                 |> jobChildren(st.children)
-    end
-    def main( st ) do
-        main st.key.value, st
     end
 
     def main(key, st ) do

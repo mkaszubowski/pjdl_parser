@@ -1,20 +1,14 @@
-# Poc
-
-To start your Phoenix app:
+# The PJDL-parser
+To install pjdl-parser, do the following: 
 
   * Install dependencies with `mix deps.get`
   * Install Node.js dependencies with `npm install`
   * Start Phoenix endpoint with `mix phoenix.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:4000/file`](http://localhost:4000/file) from your browser to
+upload zipped archives with .pjdl file inside. An example example.zip and simple.zip archives
+are provided. You can see the uploaded job templates, see their short description, edit some
+properties or delete them at [`localhost:4000/uploads`](http://localhost:4000/uploads).
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
-# pjdl_parser
+This is an ongoing work, though it temporarily stalled until the middle of October, except
+for minor style-fixes.

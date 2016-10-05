@@ -1,11 +1,6 @@
 defmodule ScriptGroupSpec do
     require JobTemplate
 
-    def scriptsChildren job, [] do
-        IO.puts "Scripts with no instances? Are you sure you wanted this?"
-        job
-    end
-
     def scriptSpec st do
         name = Statement.ensureOneName st
         script = %{ :id => name.value, :type => :embedded, :location => "", :lang => :js  }
@@ -23,6 +18,11 @@ defmodule ScriptGroupSpec do
                     Map.merge script, %{ :lang => :ex }
            end
         end
+    end
+
+    def scriptsChildren job, [] do
+        IO.puts "Scripts with no instances? Are you sure you wanted this?"
+        job
     end
 
     def scriptsChildren job, children do

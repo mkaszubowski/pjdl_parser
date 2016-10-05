@@ -1,12 +1,12 @@
 defmodule ResourceGroupSpec do
     require JobTemplate
 
-    def resourceChildren job, [] do
+    def resource_children job, [] do
         IO.puts "Resources with no instances? Are you sure you wanted this?"
         job
     end
 
-    def resourceChildren job, children do
+    def resource_children job, children do
        Enum.reduce children, job, fn (a,job) -> 
            case a.key.value do
                 "instance" ->
@@ -22,11 +22,11 @@ defmodule ResourceGroupSpec do
                             "cube" ->
                                 &ResourceSpec.dimensional/1
                             "raw" ->
-                                &ResourceSpec.noDimensional/1
+                                &ResourceSpec.no_dimensional/1
                             "folder" ->
-                                &ResourceSpec.noDimensional/1
+                                &ResourceSpec.no_dimensional/1
                             "variable" ->
-                                &ResourceSpec.noDimensional/1
+                                &ResourceSpec.no_dimensional/1
                             _ ->
                              Statement.err "unknown resource type #{i.key.value}", a.pos
                         end
@@ -50,6 +50,6 @@ defmodule ResourceGroupSpec do
         unless job.resources == [] do
             Statement.err "Resources were already declared", st.pos
         end
-        job = resourceChildren( job, st.children )
+        resource_children( job, st.children )
     end
 end

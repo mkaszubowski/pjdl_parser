@@ -104,7 +104,7 @@ defmodule ResourceSpec do
           |>  dimensions( st, dims )
     end
 
-    def noDimensional st do
+    def no_dimensional st do
         { type, dims } = case st.key.value do
             "raw" -> {:raw, 1}
             "folder"  -> {:folder,  2}
